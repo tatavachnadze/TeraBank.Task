@@ -5,7 +5,7 @@ namespace Bank.Service.Interfaces.Repositories
     {
         IAccountRepository AccountRepository { get; }
         ICustomerRepository CustomerRepository { get; }
-        ICardRepository CreditCardRepository { get; }
+        ICardRepository CardRepository { get; }
         ITransactionRepository TransactionRepository { get; }  
         int SaveChanges();
         void BeginTransaction();

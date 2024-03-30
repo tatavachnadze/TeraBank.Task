@@ -1,0 +1,6 @@
+@TeraBank._HostAddress = http://localhost:5248
+
+GET {{TeraBank._HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

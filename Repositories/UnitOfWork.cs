@@ -1,10 +1,5 @@
 ﻿using Bank.Service.Interfaces.Repositories;
 using Infrastructure.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Repositories
 {
@@ -13,6 +8,7 @@ namespace Repositories
         private readonly BankDbContext _context;
         private readonly Lazy<IAccountRepository> _accountRepository;
         private readonly Lazy<ICustomerRepository> _customerRepository;
+        private readonly Lazy<IUserRepository> _userRepository;
         private readonly Lazy<ICardRepository> _cardRepository;
         private readonly Lazy<ITransactionRepository> _transactionRepository;
        
@@ -22,13 +18,15 @@ namespace Repositories
             _context = context ?? throw new ArgumentNullException(nameof(context));
             _accountRepository = new Lazy<IAccountRepository>(() => new AccountRepository(context));
             _customerRepository = new Lazy<ICustomerRepository>(() => new CustomerRepository(context));
+            _userRepository = new Lazy<IUserRepository>(() => new UserRepository(context));
             _cardRepository = new Lazy<ICardRepository>(() => new CardRepository(context));
             _transactionRepository = new Lazy<ITransactionRepository>(() => new TransactionRepository(context));
         }
 
         public IAccountRepository AccountRepository => _accountRepository.Value;
         public ICustomerRepository CustomerRepository => _customerRepository.Value;
-        public ICardRepository CreditCardRepository => _cardRepository.Value;
+        public IUserRepository UserRepository => _userRepository.Value;
+        public ICardRepository CardRepository => _cardRepository.Value;
         public ITransactionRepository TransactionRepository => _transactionRepository.Value;
         public int SaveChanges() => _context.SaveChanges();
         public void BeginTransaction()
