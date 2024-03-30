@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34723.18
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeraBank.Task.API", "TeraBank.Task\TeraBank.Task.API.csproj", "{4B3700D3-568E-43E4-99E0-226FF168E296}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{0F2F36B7-8611-4AC5-9341-5043EA09D9F7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bank.Service", "Bank.Service\Bank.Service.csproj", "{C1F19B0E-4673-40B9-887A-C600BC4BA6C3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{8E6E17C7-3316-4E11-9ECE-F7146E4BDBEC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repositories", "Repositories\Repositories.csproj", "{79F6C173-924A-4E6A-B1AB-10DB653638EC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankDTO", "BankDTO\BankDTO.csproj", "{027751CA-F04F-478C-8691-C822F4E14297}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mediator", "Mediator\Mediator.csproj", "{3329AE57-6FE1-4646-9211-F447455E4B56}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4B3700D3-568E-43E4-99E0-226FF168E296}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B3700D3-568E-43E4-99E0-226FF168E296}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B3700D3-568E-43E4-99E0-226FF168E296}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B3700D3-568E-43E4-99E0-226FF168E296}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1F19B0E-4673-40B9-887A-C600BC4BA6C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1F19B0E-4673-40B9-887A-C600BC4BA6C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1F19B0E-4673-40B9-887A-C600BC4BA6C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1F19B0E-4673-40B9-887A-C600BC4BA6C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79F6C173-924A-4E6A-B1AB-10DB653638EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79F6C173-924A-4E6A-B1AB-10DB653638EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79F6C173-924A-4E6A-B1AB-10DB653638EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79F6C173-924A-4E6A-B1AB-10DB653638EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{027751CA-F04F-478C-8691-C822F4E14297}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{027751CA-F04F-478C-8691-C822F4E14297}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{027751CA-F04F-478C-8691-C822F4E14297}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{027751CA-F04F-478C-8691-C822F4E14297}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3329AE57-6FE1-4646-9211-F447455E4B56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3329AE57-6FE1-4646-9211-F447455E4B56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3329AE57-6FE1-4646-9211-F447455E4B56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3329AE57-6FE1-4646-9211-F447455E4B56}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C1F19B0E-4673-40B9-887A-C600BC4BA6C3} = {0F2F36B7-8611-4AC5-9341-5043EA09D9F7}
+		{79F6C173-924A-4E6A-B1AB-10DB653638EC} = {8E6E17C7-3316-4E11-9ECE-F7146E4BDBEC}
+		{027751CA-F04F-478C-8691-C822F4E14297} = {8E6E17C7-3316-4E11-9ECE-F7146E4BDBEC}
+		{3329AE57-6FE1-4646-9211-F447455E4B56} = {8E6E17C7-3316-4E11-9ECE-F7146E4BDBEC}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {33060C5C-776C-44A2-B11D-45A74A111483}
+	EndGlobalSection
+EndGlobal
