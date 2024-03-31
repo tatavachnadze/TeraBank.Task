@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿namespace Infrastructure.DTO;
 
-namespace Infrastructure.DTO;
-
-public class User : Entity
+public class Customer : Entity
 {    public string UserName { get; set; } = null!;
     public string Password { get; set; } = null!;
     public DateTime RegistrationDate { get; set; }

@@ -6,9 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\BankDTO\BankDTO.csproj" />
-    <ProjectReference Include="..\TeraExtensions\TeraExtensions.csproj" />
-  </ItemGroup>
-
 </Project>

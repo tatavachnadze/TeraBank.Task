@@ -1,6 +1,7 @@
 ﻿using Bank.Service.Interfaces.Repositories;
 using Bank.Service.Interfaces.Services;
 using Infrastructure.DTO;
+using TeraExtensions;
 
 namespace Bank.Service
 {
@@ -15,9 +16,9 @@ namespace Bank.Service
 
         //TODO: Implement password Hashing.
 
-        public Task<User> GetUser(int userId)
+        public Task<Customer> GetUser(int userId)
         {
-            User user = _unitOfWork.UserRepository.Get(userId);
+            Customer user = _unitOfWork.UserRepository.Get(userId);
             if (user != null)
             {
                 return Task.FromResult(user);
@@ -28,7 +29,7 @@ namespace Bank.Service
             }
         }
 
-        public Task<IQueryable<User>> GetUsers()
+        public Task<IQueryable<Customer>> GetUsers()
         {
             var users = _unitOfWork.UserRepository.Set();
             if (users != null)
@@ -41,7 +42,7 @@ namespace Bank.Service
             }
         }
 
-        public void CreateUser(User user)
+        public void CreateUser(Customer user)
         {
             if (user == null) throw new ArgumentNullException(nameof(user));
             user.Password = StringExtensions.GetHashString(user.Password);
@@ -49,7 +50,7 @@ namespace Bank.Service
             SaveChanges();
         }
 
-        public void UpdateUser(User user)
+        public void UpdateUser(Customer user)
         {
             if (user == null) throw new ArgumentNullException(nameof(user));
             var currentUser = _unitOfWork.UserRepository.Set().SingleOrDefault(u => u.Id == user.Id);
@@ -86,8 +87,8 @@ namespace Bank.Service
 
         public void DeleteUser(int id)
         {
-            User user = _unitOfWork.UserRepository.Get(id) ?? throw new ArgumentNullException($"The user with Id: {id} does not exist.");
-            user.IsDelete = true;
+            Customer user = _unitOfWork.UserRepository.Get(id) ?? throw new ArgumentNullException($"The user with Id: {id} does not exist.");
+            user.IsDeleted = true;
             _unitOfWork.UserRepository.Update(user);
             SaveChanges();
         }
@@ -99,7 +100,7 @@ namespace Bank.Service
 
             return _unitOfWork
                 .UserRepository
-                .Set(u => u.UserName == username && u.Password == password && !u.IsDelete)
+                .Set(u => u.UserName == username && u.Password == password && !u.IsDeleted)
                 .SingleOrDefault() != default;
         }
 

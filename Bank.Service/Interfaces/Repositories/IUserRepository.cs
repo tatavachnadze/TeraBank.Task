@@ -2,7 +2,7 @@
 
 namespace Bank.Service.Interfaces.Repositories
 {
-    public interface IUserRepository : IRepositoryBase<User>
+    public interface IUserRepository : IRepositoryBase<Customer>
     {
     }
 }

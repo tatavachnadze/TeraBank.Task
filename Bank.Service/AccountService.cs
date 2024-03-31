@@ -75,7 +75,7 @@ namespace Bank.Service
         public void DeleteAccount(int accountId)
         {
             Account account = _unitOfWork.AccountRepository.Get(accountId) ?? throw new ArgumentNullException($"The {accountId} does not exist.");
-            account.IsDelete = true;
+            account.IsActive = false;
             _unitOfWork.AccountRepository.Update(account);
             _unitOfWork.SaveChanges();
         }

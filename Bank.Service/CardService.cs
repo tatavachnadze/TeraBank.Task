@@ -15,7 +15,7 @@ namespace Bank.Service
 
         public Task<Card> GetCard(int cardId)
         {
-            Card card = _unitOfWork.CreditCardRepository.Get(cardId);
+            Card card = _unitOfWork.CardRepository.Get(cardId);
             if (card != null)
             {
                 return Task.FromResult(card);
@@ -28,7 +28,7 @@ namespace Bank.Service
 
         public Task<IQueryable<Card>> GetCards()
         {
-            var cards = _unitOfWork.CreditCardRepository.Set();
+            var cards = _unitOfWork.CardRepository.Set();
             if (cards != null)
             {
                 return Task.FromResult(cards);
@@ -42,22 +42,22 @@ namespace Bank.Service
         public void CreateCard(Card card)
         {
             if (card == null) throw new ArgumentNullException(nameof(card));
-            _unitOfWork.CreditCardRepository.Insert(card);
+            _unitOfWork.CardRepository.Insert(card);
             _unitOfWork.SaveChanges();
         }
 
         public void UpdateCard(Card card)
         {
             if (card == null) throw new ArgumentNullException(nameof(card));
-            _unitOfWork.CreditCardRepository.Update(card);
+            _unitOfWork.CardRepository.Update(card);
             _unitOfWork.SaveChanges();
         }
 
         public void DeleteCard(int cardId)
         {
-            Card card = _unitOfWork.CreditCardRepository.Get(cardId) ?? throw new ArgumentNullException($"The {cardId} does not exist.");
+            Card card = _unitOfWork.CardRepository.Get(cardId) ?? throw new ArgumentNullException($"The {cardId} does not exist.");
             card.IsActive = false;
-            _unitOfWork.CreditCardRepository.Update(card);
+            _unitOfWork.CardRepository.Update(card);
             _unitOfWork.SaveChanges();
         }
 

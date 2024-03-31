@@ -35,4 +35,4 @@ public record GetCustomerQuery(int Id) : IRequest<Customer>; // es scoria???
     //        LastChangeDate = customer.LastChangeDate,
     //    };
     //}
-}
+//}

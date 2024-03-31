@@ -8,7 +8,8 @@ public class Account : Entity
     public bool IsActive { get; set; }
     public Customer Customer { get; set; } = null!;
     public Card Card { get; set; } = null!;
-    public ICollection<Transaction>? Transactions { get; set; }
+    public ICollection<Transaction>? FromAccount{ get; set; }
+    public ICollection<Transaction>? ToAccount { get; set; }
 }
 
 public enum AccountStatus : byte
