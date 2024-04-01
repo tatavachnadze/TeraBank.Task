@@ -10,7 +10,7 @@ public class BankDbContext : DbContext
     public DbSet<Card> Card { get; set; }
     public DbSet<Customer> Customer { get; set; }
     public DbSet<Transaction> Transaction { get; set; }
-    public DbSet<Customer> Users { get; set; }
+    public DbSet<User> Users { get; set; }
     public BankDbContext(DbContextOptions<BankDbContext> dbContext) : base(dbContext)
     {
     }
@@ -54,13 +54,13 @@ public class BankDbContext : DbContext
         modelBuilder.Entity<Transaction>().HasOne(t => t.FromAccount).WithMany(a => a.FromAccount).IsRequired(true);
         modelBuilder.Entity<Transaction>().HasOne(t => t.ToAccount).WithMany(a => a.ToAccount).IsRequired(true);
 
-        modelBuilder.Entity<Customer>().Property(u => u.UserName).HasColumnType("nvarchar(15)").IsRequired();
-        modelBuilder.Entity<Customer>().HasIndex(u => u.UserName).IsUnique(true);
-        modelBuilder.Entity<Customer>().Property(u => u.Password).HasColumnType("nvarchar(128)").IsRequired();
-        modelBuilder.Entity<Customer>().Property(u => u.RegistrationDate).HasColumnType("datetime2(7)").IsRequired();
-        modelBuilder.Entity<Customer>().Property(u => u.IsDeleted).HasColumnType("bit").HasDefaultValue(true);
-        modelBuilder.Entity<Customer>().Property(u => u.CreateDate).HasColumnType("date").HasDefaultValueSql("GetDate()");
-        modelBuilder.Entity<Customer>().HasOne(u => u.Customer).WithOne(c => c.User).HasForeignKey<Customer>(u => u.Id).IsRequired(true);
+        modelBuilder.Entity<User>().Property(u => u.UserName).HasColumnType("nvarchar(15)").IsRequired();
+        modelBuilder.Entity<User>().HasIndex(u => u.UserName).IsUnique(true);
+        modelBuilder.Entity<User>().Property(u => u.Password).HasColumnType("nvarchar(128)").IsRequired();
+        modelBuilder.Entity<User>().Property(u => u.RegistrationDate).HasColumnType("datetime2(7)").IsRequired();
+        modelBuilder.Entity<User>().Property(u => u.IsDeleted).HasColumnType("bit").HasDefaultValue(true);
+        modelBuilder.Entity<User>().Property(u => u.CreateDate).HasColumnType("date").HasDefaultValueSql("GetDate()");
+        modelBuilder.Entity<User>().HasOne(u => u.Customer).WithOne(c => c.User).HasForeignKey<Customer>(u => u.Id).IsRequired(true);
 
     }
 }

@@ -20,16 +20,16 @@ namespace TeraBank.Task.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public Task<Account> GetAccount(int id)
+        public async Task<IActionResult> GetAccount(int id)
         {
-            var account = _mediator.Send.(new GetAccountQuery(id));
-            return account ?? throw new ArgumentNullException(nameof(id));
+            var account = await _mediator.Send(new GetAccountQuery(id));
+            return Ok(account);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAccounts()
         {
-            var accounts = await _mediator.Send(new GetAccountsQuery());
+            var accounts = await _mediator.Send(new GetCardsQuery());
 
             return Ok(accounts);
         }

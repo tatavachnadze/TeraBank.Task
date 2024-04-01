@@ -1,38 +1,23 @@
 ﻿using Infrastructure.DTO;
-using Bank.Service.Interfaces.Repositories;
 using MediatR;
+using Bank.Service.Interfaces.Services;
 
 namespace Mediator.Queries;
 
 public record GetCustomerQuery(int Id) : IRequest<Customer>; // es scoria???
 
-//public class GetCustomerQueryHandler : IRequestHandler<GetCustomerQuery, Customer>
-//{
-//    private readonly ICustomerRepository _customerRepository;
+public class GetCustomerQueryHandler : IRequestHandler<GetCustomerQuery, Customer>
+{
+    private readonly ICustomerService _customerService;
 
-//    public GetCustomerQueryHandler(ICustomerRepository customerRepository)
-//    {
-//        _customerRepository = customerRepository;
-//    }
+    public GetCustomerQueryHandler(ICustomerService customerService)
+    {
+        _customerService = customerService;
+    }
 
-    //public async Task<Customer> Handle(GetCustomerQuery request, CancellationToken cancellationToken)
-    //{
-    //    var customer = await _customerRepository.Query(x => x.Id == request.Id)
-    //                                          .FirstAsync(cancellationToken);
+    public async Task<Customer> Handle(GetCustomerQuery request, CancellationToken cancellationToken)
+    {
+        return await _customerService.GetCustomer(request.Id);                                              
 
-    //    return new Customer
-    //    {
-    //        Id = customer.Id,
-    //        FirstName = customer.Name,
-    //        LastName = customer.LastName,
-    //        Gender = customer.Gender,
-    //        PersonalNumber = customer.PersonalNumber,
-    //        Email = customer.Email,
-    //        IsActive = customer.IsActive,
-    //        User = customer.User,
-    //        Accounts = customer.Accounts,
-    //        CreateDate = customer.CreateDate,
-    //        LastChangeDate = customer.LastChangeDate,
-    //    };
-    //}
-//}
+    }
+}

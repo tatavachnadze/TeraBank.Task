@@ -7,7 +7,7 @@ public class Customer : Entity
     public string PersonalNumber { get; set; } = null!;
     public string Email { get; set; } = null!;
     public bool IsActive { get; set; }
-    public Customer User { get; set; } = null!;
+    public User User { get; set; } = null!;
     public ICollection<Account> Accounts { get; set; } = null!;
 }
 

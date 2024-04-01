@@ -1,11 +1,6 @@
 ﻿using Bank.Service.Interfaces.Services;
 using Infrastructure.DTO;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Mediator.Queries
 {
@@ -15,9 +10,9 @@ namespace Mediator.Queries
     {
         private readonly IAccountService _accountService;
 
-        public GetAccountsQueryHandler(IAccountService accountService)
+        public GetAccountsQueryHandler(IAccountService cardService)
         {
-            _accountService = accountService;
+            _accountService = cardService;
 
         }
         public async Task<IQueryable<Account>> Handle(GetAccountsQuery request, CancellationToken cancellationToken)

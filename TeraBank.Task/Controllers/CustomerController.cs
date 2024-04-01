@@ -19,14 +19,11 @@ namespace TeraBank.API.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public Task<Customer> GetCustomer(int id)
+        public async Task<IActionResult> GetCustomer(int id)
         {
-            var customer = _mediator.GetCustomer(id);
-            if (customer == null)
-            {
-                throw new ArgumentNullException($"The item with given Id: {nameof(id)} could not be found.");
-            }
-            return customer;
+           var customer = await _mediator.Send(new GetCustomerQuery(id));
+            return Ok(customer);
+    
         }
 
         [HttpGet]
