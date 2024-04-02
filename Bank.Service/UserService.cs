@@ -38,7 +38,7 @@ namespace Bank.Service
             }
             else
             {
-                throw new InvalidDataException("The UserId could not be found");
+                throw new InvalidDataException("Users could not be found within the data");
             }
         }
 

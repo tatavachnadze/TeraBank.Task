@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankDTO", "BankDTO\BankDTO.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mediator", "Mediator\Mediator.csproj", "{3329AE57-6FE1-4646-9211-F447455E4B56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeraExtensions", "TeraExtensions\TeraExtensions.csproj", "{844E6F14-58CE-4C83-A939-B35856D667CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeraExtensions", "TeraExtensions\TeraExtensions.csproj", "{844E6F14-58CE-4C83-A939-B35856D667CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

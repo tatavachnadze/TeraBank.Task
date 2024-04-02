@@ -35,6 +35,7 @@ public class BankDbContext : DbContext
         modelBuilder.Entity<Card>().Property(c => c.ExpirationDate).HasDefaultValueSql("GetDate()").HasColumnType("date").IsRequired();
         modelBuilder.Entity<Card>().Property(c => c.CreateDate).HasDefaultValueSql("GetDate()").HasColumnType("date").IsRequired();
         modelBuilder.Entity<Card>().Property(c => c.IsActive).HasColumnType("bit").HasDefaultValue(true).IsRequired();
+        modelBuilder.Entity<Card>().HasOne(c =>c.Owner).WithMany(cu => cu.Cards).IsRequired(true);
         modelBuilder.Entity<Card>().HasMany(c => c.Accounts).WithOne(a => a.Card).IsRequired(true).OnDelete(DeleteBehavior.NoAction);   
 
         modelBuilder.Entity<Customer>().Property(cu => cu.FirstName).HasColumnType("nvarchar(25)").IsRequired();
@@ -44,6 +45,7 @@ public class BankDbContext : DbContext
         modelBuilder.Entity<Customer>().Property(cu => cu.CreateDate).HasColumnType("date").HasDefaultValueSql("GetDate()").IsRequired();
         modelBuilder.Entity<Customer>().Property(cu => cu.IsActive).HasColumnType("bit").HasDefaultValue(true).IsRequired();
         modelBuilder.Entity<Customer>().HasOne(cu => cu.User).WithOne(u => u.Customer).HasForeignKey<Customer>(u => u.Id).IsRequired(true);
+        modelBuilder.Entity<Customer>().HasMany(cu => cu.Cards).WithOne(c => c.Owner).IsRequired(true).OnDelete(DeleteBehavior.NoAction);
         modelBuilder.Entity<Customer>().HasMany(cu => cu.Accounts).WithOne(a => a.Customer).IsRequired(true).OnDelete(DeleteBehavior.NoAction);
 
         modelBuilder.Entity<Transaction>().Property(t => t.Amount).HasColumnType("money").IsRequired();

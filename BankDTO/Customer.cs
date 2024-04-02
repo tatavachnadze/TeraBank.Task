@@ -8,6 +8,7 @@ public class Customer : Entity
     public string Email { get; set; } = null!;
     public bool IsActive { get; set; }
     public User User { get; set; } = null!;
+    public ICollection<Card> Cards { get; set; } = null!;
     public ICollection<Account> Accounts { get; set; } = null!;
 }
 

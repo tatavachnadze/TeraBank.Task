@@ -1,8 +1,11 @@
 using Bank.Service.Interfaces.Services;
 using Infrastructure.DTO;
+using Mediator.Commands;
 using Mediator.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using TeraBank.API.Models;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace TeraBank.Task.Controllers
 {
@@ -29,36 +32,30 @@ namespace TeraBank.Task.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAccounts()
         {
-            var accounts = await _mediator.Send(new GetCardsQuery());
+            var accounts = await _mediator.Send(new GetAccountsQuery());
 
             return Ok(accounts);
         }
 
         [HttpPost]
-        public Task CreateAccount(AccountModel accountModel)
+        public async Task<IActionResult> CreateAccount(AccountModel accountModel)
         {
-            Account account = new()
-            {
-                Amount = accountModel.Amount,
-                IBAN = accountModel.IBAN,
-            };
-            _accountService.CreateAccount(account);
-            return Task.CompletedTask;
+            var account = await _mediator.Send(new CreateAccountCommand(accountModel.IBAN, accountModel.Balance, accountModel.customerId, accountModel.cardId));
+            return Ok(account);
         }
 
         [HttpPut]
-        public Task UpdateAccount(Account account)
+        public async Task<IActionResult> UpdateAccount(AccountModel accountModel)
         {
-            if (account == null) throw new ArgumentNullException(nameof(account));
-            _accountService.UpdateAccount(account);
-            return Task.CompletedTask;
+            var account = await _mediator.Send(new UpdateAccountCommand(accountModel.IBAN, accountModel.Balance, accountModel.customerId, accountModel.cardId));
+            return Ok(account);
         }
 
         [HttpPut("{id:int}")]
-        public Task SuspendAccount(int id)
+        public async Task<IActionResult> SuspendAccount(int id)
         {
-            _accountService.SuspendAccount(id);
-            return Task.CompletedTask;
+            var account = await _mediator.Send(new SuspendAccountCommand(id));
+            return Ok(account);
         }
 
         [HttpPut("{id:int}")]

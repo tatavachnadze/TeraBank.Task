@@ -35,7 +35,7 @@ namespace Bank.Service
             }
             else
             {
-                throw new InvalidDataException("The cardId couldn't not be found in within the data.");
+                throw new InvalidDataException("Cards couldn't not be found in within the data.");
             }
         }
 

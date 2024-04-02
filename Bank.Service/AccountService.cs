@@ -31,7 +31,7 @@ namespace Bank.Service
             var accounts = _unitOfWork.AccountRepository.Set();
             if (accounts == null)
             {
-                throw new InvalidDataException("The AccountId could not be found");
+                throw new InvalidDataException("Accounts could not be found");
             }
 
             return Task.FromResult(accounts);
