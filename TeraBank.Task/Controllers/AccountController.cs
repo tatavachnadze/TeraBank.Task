@@ -1,11 +1,8 @@
-using Bank.Service.Interfaces.Services;
-using Infrastructure.DTO;
 using Mediator.Commands;
 using Mediator.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TeraBank.API.Models;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace TeraBank.Task.Controllers
 {
@@ -33,7 +30,6 @@ namespace TeraBank.Task.Controllers
         public async Task<IActionResult> GetAccounts()
         {
             var accounts = await _mediator.Send(new GetAccountsQuery());
-
             return Ok(accounts);
         }
 
@@ -54,22 +50,22 @@ namespace TeraBank.Task.Controllers
         [HttpPut("{id:int}")]
         public async Task<IActionResult> SuspendAccount(int id)
         {
-            var account = await _mediator.Send(new SuspendAccountCommand(id));
-            return Ok(account);
+            await _mediator.Send(new SuspendAccountCommand(id));
+            return Ok();
         }
 
         [HttpPut("{id:int}")]
-        public Task ResumeAccount(int id)
+        public async Task<IActionResult> ResumeAccount(int id)
         {
-            _accountService.ResumeAccount(id);
-            return Task.CompletedTask;
+            await _mediator.Send(new ResumeAccountCommand(id));
+            return Ok();
         }
 
         [HttpDelete("{id:int}")]
-        public Task DeleteAccount(int id)
+        public async Task<IActionResult> DeleteAccount(int id)
         {
-            _accountService.DeleteAccount(id);
-            return Task.CompletedTask;
+            await _mediator.Send(new DeleteAccountCommand(id));
+            return Ok();
         }
     }
 }
