@@ -1,5 +1,4 @@
 ﻿using Bank.Service;
-using Bank.Service.Interfaces.Repositories;
 using Bank.Service.Interfaces.Services;
 using Infrastructure.DTO;
 using MediatR;
@@ -7,8 +6,7 @@ using MediatR;
 
 namespace Mediator.Commands;
 
-public record AddCustomerCommand(Customer customer) /*string FirstName, string LastName, string Gender, string PersonalNumber, string Email*/
-        : IRequest<Customer>; // customer-s abrunebs anu
+public record AddCustomerCommand(string FirstName, string LastName, string PersonalNumber, string Email) : IRequest<Customer>; // customer-s abrunebs anu
 
 public class AddCustomerCommandHandler : IRequestHandler<AddCustomerCommand, Customer>
 {
@@ -17,16 +15,18 @@ public class AddCustomerCommandHandler : IRequestHandler<AddCustomerCommand, Cus
     public AddCustomerCommandHandler(ICustomerService customerService)
     {
         _customerService = customerService;
-
     }
 
     public async Task<Customer> Handle(AddCustomerCommand request, CancellationToken cancellationToken)
     {
-        await _customerService.AddCustomer(request);
+        var customer = new Customer();
+        customer.FirstName = request.FirstName;
+        customer.LastName = request.LastName;
+        customer.PersonalNumber = request.PersonalNumber;
+        customer.Email = request.Email;
 
-
-        await _customerService.SaveAsync(cancellationToken);
-
+        _customerService.UpdateCustomer(customer);
+        return await _customerService.GetCustomer(customer.Id);
     }
 }
 

@@ -29,7 +29,7 @@ namespace Bank.Service
             }
         }
 
-        public Task<IQueryable<Customer>> GetUsers()
+        public Task<IQueryable<User>> GetUsers()
         {
             var users = _unitOfWork.UserRepository.Set();
             if (users != null)
@@ -42,7 +42,7 @@ namespace Bank.Service
             }
         }
 
-        public void CreateUser(Customer user)
+        public void CreateUser(User user)
         {
             if (user == null) throw new ArgumentNullException(nameof(user));
             user.Password = StringExtensions.GetHashString(user.Password);
@@ -50,14 +50,14 @@ namespace Bank.Service
             SaveChanges();
         }
 
-        public void UpdateUser(Customer user)
+        public void UpdateUser(User user)
         {
             if (user == null) throw new ArgumentNullException(nameof(user));
             var currentUser = _unitOfWork.UserRepository.Set().SingleOrDefault(u => u.Id == user.Id);
 
             if (currentUser != null)
             {
-                currentUser.UserName = user.UserName;
+                currentUser.UserName = user.UserName;              
                 //currentUser.RegistrationDate = user.RegistrationDate;
                 //currentUser.Customer = user.Customer;
                 _unitOfWork.UserRepository.Update(currentUser);
@@ -67,7 +67,6 @@ namespace Bank.Service
             {
                 throw new InvalidDataException("User not found");
             }
-
         }
 
         public void ResetPassword(int userId, string newPassword)
@@ -87,7 +86,7 @@ namespace Bank.Service
 
         public void DeleteUser(int id)
         {
-            Customer user = _unitOfWork.UserRepository.Get(id) ?? throw new ArgumentNullException($"The user with Id: {id} does not exist.");
+            User user = _unitOfWork.UserRepository.Get(id) ?? throw new ArgumentNullException($"The user with Id: {id} does not exist.");
             user.IsDeleted = true;
             _unitOfWork.UserRepository.Update(user);
             SaveChanges();

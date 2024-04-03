@@ -1,9 +1,11 @@
 ﻿using Bank.Service.Interfaces.Services;
 using Infrastructure.DTO;
+using Mediator.Commands;
 using Mediator.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TeraBank.API.Models;
 
 namespace TeraBank.API.Controllers
 {
@@ -36,38 +38,32 @@ namespace TeraBank.API.Controllers
         }
 
         [HttpPost]
-        public Task RegisterUser(UserModel model)
+        public async Task<IActionResult> RegisterUser(UserModel model)
         {
-            User user = new()
-            {
-                UserName = model.UserName,
-                Password = model.Password
-            };
-            _userService.CreateUser(user);
-            return Task.CompletedTask;
+            var user = await _mediator.Send(new RegisterUserCommand(model.UserName, model.Password));
+            return Ok(user);
         }
 
         [HttpPut]
-        public Task UpdateUser(User user)
+        public async Task<IActionResult> UpdateUser(UserModel model)
         {
-            if (user == null) throw new ArgumentNullException(nameof(user));
-            _mediator.UpdateUser(user);
-            return Task.CompletedTask;
+            var user = await _mediator.Send(new UpdateUserCommand(model.UserName));
+            return Ok(user);
         }
 
         [HttpPut]
-        public Task ResetPassword(User user, string newPassword)
+        public async Task<IActionResult> ResetPassword(User user, string newPassword)
         {
             if (string.IsNullOrEmpty(newPassword)) throw new ArgumentNullException(nameof(newPassword));
-            _mediator.ResetPassword(user.Id, newPassword);
-            return Task.CompletedTask;
+            await _mediator.Send(new ResetPasswordCommand(user.Id, newPassword));
+            return Ok();
         }
 
         [HttpDelete("{id:int}")]
-        public Task DeleteUser(int id)
+        public async Task<IActionResult> DeleteUser(int id)
         {
-            _mediator.DeleteUser(id);
-            return Task.CompletedTask;
+            await _mediator.Send(new DeleteUserCommand(id));
+            return Ok();
         }
     }
 }

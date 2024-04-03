@@ -59,7 +59,5 @@ namespace Bank.Service
             _unitOfWork.CustomerRepository.Update(customer);
             _unitOfWork.SaveChanges();
         }
-
-
     }
 }
