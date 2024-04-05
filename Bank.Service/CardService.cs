@@ -55,7 +55,7 @@ namespace Bank.Service
 
         public void DeleteCard(int cardId)
         {
-            Account card = _unitOfWork.CardRepository.Get(cardId) ?? throw new ArgumentNullException($"The {cardId} does not exist.");
+            Card card = _unitOfWork.CardRepository.Get(cardId) ?? throw new ArgumentNullException($"The {cardId} does not exist.");
             card.IsActive = false;
             _unitOfWork.CardRepository.Update(card);
             _unitOfWork.SaveChanges();

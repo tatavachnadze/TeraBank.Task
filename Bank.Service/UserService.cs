@@ -16,9 +16,9 @@ namespace Bank.Service
 
         //TODO: Implement password Hashing.
 
-        public Task<Customer> GetUser(int userId)
+        public Task<User> GetUser(int userId)
         {
-            Customer user = _unitOfWork.UserRepository.Get(userId);
+            User user = _unitOfWork.UserRepository.Get(userId);
             if (user != null)
             {
                 return Task.FromResult(user);

@@ -12,11 +12,8 @@ namespace TeraBank.API.Controllers
     public class CustomerController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly ILogger<CustomerController> _logger;
-
         public CustomerController(IMediator mediator, ILogger<CustomerController> logger)
         {
-            _logger = logger;
             _mediator = mediator;
         }
 
@@ -47,6 +44,7 @@ namespace TeraBank.API.Controllers
             var customer = await _mediator.Send(new UpdateCustomerCommand(customerModel.FirstName, customerModel.Lastname, customerModel.PersonalNumber, customerModel.Email));
             return Ok(customer);
         }
+
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteCustomer(int id)
         {

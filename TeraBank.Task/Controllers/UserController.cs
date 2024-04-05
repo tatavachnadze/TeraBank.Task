@@ -14,11 +14,9 @@ namespace TeraBank.API.Controllers
     public class UserController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly ILogger<UserController> _logger;
 
         public UserController(IMediator mediator, ILogger<UserController> logger)
         {
-            _logger = logger;
             _mediator = mediator;
         }
 
@@ -26,7 +24,6 @@ namespace TeraBank.API.Controllers
         public async Task<IActionResult> GetUser(int id)
         {
             var user = await _mediator.Send(new GetUserQuery(id));
-         
             return Ok(user);
         }
 
@@ -38,24 +35,24 @@ namespace TeraBank.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> RegisterUser(UserModel model)
+        public async Task<IActionResult> RegisterUser([FromBody] UserModel model)
         {
             var user = await _mediator.Send(new RegisterUserCommand(model.UserName, model.Password));
             return Ok(user);
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateUser(UserModel model)
+        public async Task<IActionResult> UpdateUser([FromBody] UserModel model)
         {
             var user = await _mediator.Send(new UpdateUserCommand(model.UserName));
             return Ok(user);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> ResetPassword(User user, string newPassword)
+        [HttpPut("{id:int}/password")]
+        public async Task<IActionResult> ResetPassword(int Id, UserModel model)
         {
-            if (string.IsNullOrEmpty(newPassword)) throw new ArgumentNullException(nameof(newPassword));
-            await _mediator.Send(new ResetPasswordCommand(user.Id, newPassword));
+            if (string.IsNullOrEmpty(model.Password)) throw new ArgumentNullException(nameof(model.Password));
+            await _mediator.Send(new ResetPasswordCommand(Id, model.Password));
             return Ok();
         }
 

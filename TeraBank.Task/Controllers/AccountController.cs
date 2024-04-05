@@ -34,14 +34,14 @@ namespace TeraBank.Task.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAccount(AccountModel accountModel)
+        public async Task<IActionResult> CreateAccount([FromBody] AccountModel accountModel)
         {
             var account = await _mediator.Send(new CreateAccountCommand(accountModel.IBAN, accountModel.Balance, accountModel.customerId, accountModel.cardId));
             return Ok(account);
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateAccount(AccountModel accountModel)
+        public async Task<IActionResult> UpdateAccount([FromBody] AccountModel accountModel)
         {
             var account = await _mediator.Send(new UpdateAccountCommand(accountModel.IBAN, accountModel.Balance, accountModel.customerId, accountModel.cardId));
             return Ok(account);
