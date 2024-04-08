@@ -1,7 +1,4 @@
-﻿using Bank.Service;
-using Bank.Service.Interfaces.Services;
-using Infrastructure.DTO;
-using Mediator.Commands;
+﻿using Mediator.Commands;
 using Mediator.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -9,10 +6,12 @@ using TeraBank.API.Models;
 
 namespace TeraBank.API.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class CustomerController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public CustomerController(IMediator mediator, ILogger<CustomerController> logger)
+        public CustomerController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -32,14 +31,14 @@ namespace TeraBank.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddCustomer(CustomerModel customerModel)
+        public async Task<IActionResult> AddCustomer([FromBody] CustomerModel customerModel)
         {
             var customer = await _mediator.Send(new AddCustomerCommand(customerModel.FirstName, customerModel.Lastname, customerModel.PersonalNumber, customerModel.Email));
             return Ok(customer);
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateCustomer(CustomerModel customerModel)
+        public async Task<IActionResult> UpdateCustomer([FromBody] CustomerModel customerModel)
         {
             var customer = await _mediator.Send(new UpdateCustomerCommand(customerModel.FirstName, customerModel.Lastname, customerModel.PersonalNumber, customerModel.Email));
             return Ok(customer);

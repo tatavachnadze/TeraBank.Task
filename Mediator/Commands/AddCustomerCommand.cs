@@ -1,5 +1,4 @@
-﻿using Bank.Service;
-using Bank.Service.Interfaces.Services;
+﻿using Bank.Service.Interfaces.Services;
 using Infrastructure.DTO;
 using MediatR;
 

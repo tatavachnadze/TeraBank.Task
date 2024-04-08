@@ -1,9 +1,6 @@
-﻿using Bank.Service.Interfaces.Services;
-using Infrastructure.DTO;
-using Mediator.Commands;
+﻿using Mediator.Commands;
 using Mediator.Queries;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TeraBank.API.Models;
 
@@ -15,7 +12,7 @@ namespace TeraBank.API.Controllers
     {
         private readonly IMediator _mediator;
 
-        public UserController(IMediator mediator, ILogger<UserController> logger)
+        public UserController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -49,7 +46,7 @@ namespace TeraBank.API.Controllers
         }
 
         [HttpPut("{id:int}/password")]
-        public async Task<IActionResult> ResetPassword(int Id, UserModel model)
+        public async Task<IActionResult> ResetPassword(int Id,[FromBody] UserModel model)
         {
             if (string.IsNullOrEmpty(model.Password)) throw new ArgumentNullException(nameof(model.Password));
             await _mediator.Send(new ResetPasswordCommand(Id, model.Password));

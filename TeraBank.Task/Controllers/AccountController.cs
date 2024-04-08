@@ -11,12 +11,10 @@ namespace TeraBank.Task.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly ILogger<AccountController> _logger;
 
-        public AccountController(IMediator mediator, ILogger<AccountController> logger)
+        public AccountController(IMediator mediator)
         {
             _mediator = mediator;
-            _logger = logger;
         }
 
         [HttpGet("{id:int}")]
@@ -54,7 +52,7 @@ namespace TeraBank.Task.Controllers
             return Ok();
         }
 
-        [HttpPut("{id:int}")]
+        [HttpPut("{id:int}/resume")]
         public async Task<IActionResult> ResumeAccount(int id)
         {
             await _mediator.Send(new ResumeAccountCommand(id));

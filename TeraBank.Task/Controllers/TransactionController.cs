@@ -1,5 +1,4 @@
-﻿using Infrastructure.DTO;
-using Mediator.Queries;
+﻿using Mediator.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TeraBank.API.Models;
@@ -12,7 +11,7 @@ namespace TeraBank.API.Controllers
     public class TransactionController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public TransactionController(IMediator mediator, ILogger<TransactionController> logger)
+        public TransactionController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -32,14 +31,14 @@ namespace TeraBank.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateTransaction(TransactionModel transactionModel)
+        public async Task<IActionResult> CreateTransaction([FromBody] TransactionModel transactionModel)
         {          
             var transaction = await _mediator.Send(new CreateTransactionCommand(transactionModel.Amount, transactionModel.FromAccountId, transactionModel.ToAccountId));
             return Ok(transaction);
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateTransaction(TransactionModel transactionModel)
+        public async Task<IActionResult> UpdateTransaction([FromBody] TransactionModel transactionModel)
         {
             var transaction = await _mediator.Send(new UpdateTransactionCommand(transactionModel.Amount, transactionModel.FromAccountId, transactionModel.ToAccountId));
             return Ok(transaction);

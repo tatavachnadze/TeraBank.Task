@@ -11,11 +11,12 @@ namespace TeraBank.Task.API.Configuration
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             //builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-            //builder.Services.AddScoped<IIndividualService, IndividualService>();
-            //builder.Services.AddScoped<ICityService, CityService>();
-
             builder.Services.AddDbContext<BankDbContext>(options => options.UseSqlServer(connectionString));
+            //builder.Services.AddMediatR(config => config.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(assembly));
+            }
         }
-
     }
 }

@@ -1,8 +1,6 @@
-﻿using Infrastructure.DTO;
-using Mediator.Queries;
+﻿using Mediator.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using TeraBank.API.Models;
 
 namespace TeraBank.API.Controllers
 {
@@ -12,7 +10,7 @@ namespace TeraBank.API.Controllers
     {
         private readonly IMediator _mediator;
 
-        public CardController(IMediator mediator, ILogger<CardController> logger)
+        public CardController(IMediator mediator)
         {
             _mediator = mediator;
         }
