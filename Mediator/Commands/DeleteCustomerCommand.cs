@@ -1,5 +1,4 @@
-﻿using Bank.Service;
-using Bank.Service.Interfaces.Services;
+﻿using Bank.Service.Interfaces.Services;
 using MediatR;
 
 namespace Mediator.Commands

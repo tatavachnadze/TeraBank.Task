@@ -1,6 +1,6 @@
-﻿using Infrastructure.DTO;
-using MediatR;
+﻿using MediatR;
 using Bank.Service.Interfaces.Services;
+using Domain.Entities;
 
 namespace Mediator.Queries;
 

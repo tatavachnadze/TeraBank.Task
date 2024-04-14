@@ -1,6 +1,6 @@
-﻿using Bank.Service.Interfaces.Repositories;
-using Bank.Service.Interfaces.Services;
-using Infrastructure.DTO;
+﻿using Bank.Service.Interfaces.Services;
+using Domain.Abstractions;
+using Domain.Entities;
 
 namespace Bank.Service
 {
@@ -60,7 +60,5 @@ namespace Bank.Service
             _unitOfWork.CardRepository.Update(card);
             _unitOfWork.SaveChanges();
         }
-
-
     }
 }

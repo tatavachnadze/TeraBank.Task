@@ -1,8 +1,8 @@
-﻿using Infrastructure.DTO;
+﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace Infrastructure.Repositories;
+namespace Infrastructure;
 
 public class BankDbContext : DbContext
 {
@@ -63,6 +63,5 @@ public class BankDbContext : DbContext
         modelBuilder.Entity<User>().Property(u => u.IsDeleted).HasColumnType("bit").HasDefaultValue(true);
         modelBuilder.Entity<User>().Property(u => u.CreateDate).HasColumnType("date").HasDefaultValueSql("GetDate()");
         modelBuilder.Entity<User>().HasOne(u => u.Customer).WithOne(c => c.User).HasForeignKey<Customer>(u => u.Id).IsRequired(true);
-
     }
 }

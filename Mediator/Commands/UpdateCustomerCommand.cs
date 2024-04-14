@@ -1,6 +1,5 @@
-﻿using Bank.Service;
-using Bank.Service.Interfaces.Services;
-using Infrastructure.DTO;
+﻿using Bank.Service.Interfaces.Services;
+using Domain.Entities;
 using MediatR;
 
 namespace Mediator.Commands

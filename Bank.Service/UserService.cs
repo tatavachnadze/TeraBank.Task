@@ -1,6 +1,6 @@
-﻿using Bank.Service.Interfaces.Repositories;
-using Bank.Service.Interfaces.Services;
-using Infrastructure.DTO;
+﻿using Bank.Service.Interfaces.Services;
+using Domain.Abstractions;
+using Domain.Entities;
 using TeraExtensions;
 
 namespace Bank.Service

@@ -1,7 +1,7 @@
-﻿using Bank.Service.Interfaces.Repositories;
+﻿using Domain.Abstractions;
 using Infrastructure.Repositories;
 
-namespace Repositories
+namespace Infrastructure
 {
     public class UnitOfWork : IUnitOfWork
     {

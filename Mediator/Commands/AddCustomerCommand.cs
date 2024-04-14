@@ -1,5 +1,5 @@
 ﻿using Bank.Service.Interfaces.Services;
-using Infrastructure.DTO;
+using Domain.Entities;
 using MediatR;
 
 
