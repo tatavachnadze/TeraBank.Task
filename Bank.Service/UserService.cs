@@ -107,7 +107,5 @@ namespace Bank.Service
         {
             _unitOfWork.SaveChanges();
         }
-
-
     }
 }

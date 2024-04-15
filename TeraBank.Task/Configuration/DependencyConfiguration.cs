@@ -1,4 +1,4 @@
-﻿using Infrastructure.Repositories;
+﻿using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace TeraBank.Task.API.Configuration

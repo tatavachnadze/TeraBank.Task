@@ -26,7 +26,6 @@ namespace Presentation.Controllers
         public async Task<IActionResult> GetCards()
         {
             var cards = await _mediator.Send(new GetCardsQuery());
-
             return Ok(cards);
         }
 
@@ -69,7 +68,6 @@ namespace Presentation.Controllers
         //    {
         //        _accountService.DeleteAccount(id);
         //        return Task.CompletedTask;
-        //    }
-        
+        //    }        
     }
 }
