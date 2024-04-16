@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Repositories.Migrations
+namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
@@ -11,25 +11,6 @@ namespace Repositories.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Card",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Type = table.Column<string>(type: "nvarchar(20)", nullable: false),
-                    Number = table.Column<string>(type: "nvarchar(20)", nullable: false),
-                    Cvc = table.Column<string>(type: "nvarchar(4)", nullable: false),
-                    ExpirationDate = table.Column<DateTime>(type: "date", nullable: false, defaultValueSql: "GetDate()"),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
-                    CreateDate = table.Column<DateTime>(type: "date", nullable: false, defaultValueSql: "GetDate()"),
-                    LastChangeDate = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Card", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
@@ -71,6 +52,31 @@ namespace Repositories.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Card",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Type = table.Column<string>(type: "nvarchar(20)", nullable: false),
+                    Number = table.Column<string>(type: "nvarchar(20)", nullable: false),
+                    Cvc = table.Column<string>(type: "nvarchar(4)", nullable: false),
+                    OwnerId = table.Column<int>(type: "int", nullable: false),
+                    ExpirationDate = table.Column<DateTime>(type: "date", nullable: false, defaultValueSql: "GetDate()"),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
+                    CreateDate = table.Column<DateTime>(type: "date", nullable: false, defaultValueSql: "GetDate()"),
+                    LastChangeDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Card", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Card_Customer_OwnerId",
+                        column: x => x.OwnerId,
+                        principalTable: "Customer",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -154,6 +160,11 @@ namespace Repositories.Migrations
                 table: "Card",
                 columns: new[] { "Number", "Cvc" },
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Card_OwnerId",
+                table: "Card",
+                column: "OwnerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Transaction_FromAccountId",

@@ -1,5 +1,6 @@
 ﻿using Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace TeraBank.Task.API.Configuration
 {
@@ -17,6 +18,13 @@ namespace TeraBank.Task.API.Configuration
             {
                 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(assembly));
             }
+
+            var controllersAssembly = Assembly.Load("Presentation");
+
+            // Add services to the container.
+            builder.Services.AddControllers()
+                .AddApplicationPart(controllersAssembly)
+                .AddControllersAsServices();
         }
     }
 }

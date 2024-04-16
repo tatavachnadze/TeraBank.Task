@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Mediator\Mediator.csproj" />
-    <ProjectReference Include="..\TeraBank.Task\TeraBank.API.csproj" />
   </ItemGroup>
 
 </Project>
