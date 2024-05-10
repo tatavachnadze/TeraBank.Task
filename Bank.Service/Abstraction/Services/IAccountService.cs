@@ -5,7 +5,7 @@ namespace Bank.Service.Interfaces.Services
     public interface IAccountService
     {
         Task<Account> GetAccount(int id);
-        Task<IQueryable<Account>> GetAccounts();
+        Task<IEnumerable<Account>> GetAccounts();
         void CreateAccount(Account account);
         void UpdateAccount(Account account);
         void SuspendAccount(int accountId);

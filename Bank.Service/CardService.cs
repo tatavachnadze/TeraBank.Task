@@ -26,9 +26,9 @@ namespace Bank.Service
             }
         }
 
-        public Task<IQueryable<Card>> GetCards()
+        public Task<IEnumerable<Card>> GetCards()
         {
-            var cards = _unitOfWork.CardRepository.Set();
+            var cards = _unitOfWork.CardRepository.Set() as IEnumerable<Card>;
             if (cards != null)
             {
                 return Task.FromResult(cards);

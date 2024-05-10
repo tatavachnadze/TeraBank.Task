@@ -6,7 +6,7 @@ namespace Mediator.Queries
 {
     public record GetUsersQuery() : IRequest<IQueryable<User>>;
 
-    public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, IQueryable<User>>
+    public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, IEnumerable<User>>
     {
         private readonly IUserService _userService;
 
@@ -15,7 +15,7 @@ namespace Mediator.Queries
             _userService = userService;
 
         }
-        public async Task<IQueryable<User>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<User>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
         {
             return await _userService.GetUsers();
             //await _userService.SaveAsync(cancellationToken);

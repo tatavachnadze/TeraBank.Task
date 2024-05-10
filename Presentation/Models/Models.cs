@@ -5,5 +5,4 @@
     public record CustomerModel(string FirstName, string Lastname, string PersonalNumber, string Email);
     public record CardModel(int OwnerId, int CardType, string Number, string Cvc, DateTime ExpirationDate);
     public record TransactionModel(decimal Amount, int TransactionType, int FromAccountId, int ToAccountId);
-
 }

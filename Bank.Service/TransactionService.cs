@@ -26,9 +26,9 @@ namespace Bank.Service
             }
         }
 
-        public Task<IQueryable<Transaction>> GetTransactions()
+        public Task<IEnumerable<Transaction>> GetTransactions()
         {
-            var transactions = _unitOfWork.TransactionRepository.Set();
+            var transactions = _unitOfWork.TransactionRepository.Set() as IEnumerable<Transaction>;
             if (transactions != null)
             {
                 return Task.FromResult(transactions);

@@ -29,9 +29,9 @@ namespace Bank.Service
             }
         }
 
-        public Task<IQueryable<User>> GetUsers()
+        public Task<IEnumerable<User>> GetUsers()
         {
-            var users = _unitOfWork.UserRepository.Set();
+            var users = _unitOfWork.UserRepository.Set() as IEnumerable<User>;
             if (users != null)
             {
                 return Task.FromResult(users);

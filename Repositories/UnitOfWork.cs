@@ -10,8 +10,7 @@ namespace Infrastructure
         private readonly Lazy<ICustomerRepository> _customerRepository;
         private readonly Lazy<IUserRepository> _userRepository;
         private readonly Lazy<ICardRepository> _cardRepository;
-        private readonly Lazy<ITransactionRepository> _transactionRepository;
-       
+        private readonly Lazy<ITransactionRepository> _transactionRepository;       
 
         public UnitOfWork(BankDbContext context)
         {

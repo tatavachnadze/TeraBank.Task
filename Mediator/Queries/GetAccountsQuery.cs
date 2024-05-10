@@ -6,7 +6,7 @@ namespace Mediator.Queries
 {
     public record GetAccountsQuery() : IRequest<IQueryable<Account>>;
 
-    public class GetAccountsQueryHandler : IRequestHandler<GetAccountsQuery, IQueryable<Account>>
+    public class GetAccountsQueryHandler : IRequestHandler<GetAccountsQuery, IEnumerable<Account>>
     {
         private readonly IAccountService _accountService;
 
@@ -15,7 +15,7 @@ namespace Mediator.Queries
             _accountService = cardService;
 
         }
-        public async Task<IQueryable<Account>> Handle(GetAccountsQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Account>> Handle(GetAccountsQuery request, CancellationToken cancellationToken)
         {
             return await _accountService.GetAccounts();
             //await _customerService.SaveAsync(cancellationToken);

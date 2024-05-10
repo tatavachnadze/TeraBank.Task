@@ -26,9 +26,9 @@ namespace Bank.Service
             }
         }
 
-        public Task<IQueryable<Account>> GetAccounts()
+        public Task<IEnumerable<Account>> GetAccounts()
         {
-            var accounts = _unitOfWork.AccountRepository.Set();
+            var accounts = _unitOfWork.AccountRepository.Set() as IEnumerable<Account>;
             if (accounts == null)
             {
                 throw new InvalidDataException("Accounts could not be found");

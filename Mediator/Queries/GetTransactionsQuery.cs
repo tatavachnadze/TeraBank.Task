@@ -7,7 +7,7 @@ namespace Mediator.Queries
 {
     public record GetTransactionsQuery() : IRequest<IQueryable<Transaction>>;
 
-    public class GetTransactionsQueryHandler : IRequestHandler<GetTransactionsQuery, IQueryable<Transaction>>
+    public class GetTransactionsQueryHandler : IRequestHandler<GetTransactionsQuery, IEnumerable<Transaction>>
     {
         private readonly ITransactionService _transactionService;
 
@@ -16,7 +16,7 @@ namespace Mediator.Queries
             _transactionService = transactionService;
 
         }
-        public async Task<IQueryable<Transaction>> Handle(GetTransactionsQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Transaction>> Handle(GetTransactionsQuery request, CancellationToken cancellationToken)
         {
             return await _transactionService.GetTransactions();     
         }

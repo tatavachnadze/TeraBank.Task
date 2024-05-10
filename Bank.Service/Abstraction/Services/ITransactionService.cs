@@ -5,7 +5,7 @@ namespace Bank.Service.Interfaces.Services
     public interface ITransactionService
     {
         Task<Transaction> GetTransaction(int id);
-        Task<IQueryable<Transaction>> GetTransactions();
+        Task<IEnumerable<Transaction>> GetTransactions();
         void CreateTransaction(Transaction transaction);
         void UpdateTransaction(Transaction transaction);
         void DeleteTransaction(int id);
