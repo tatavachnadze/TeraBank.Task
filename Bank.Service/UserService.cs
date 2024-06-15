@@ -1,6 +1,10 @@
-﻿using Bank.Service.Interfaces.Services;
+﻿using Bank.Service.Dto;
+using Bank.Service.Interfaces.Services;
 using Domain.Abstractions;
 using Domain.Entities;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Cryptography;
+using System.Text;
 using TeraExtensions;
 
 namespace Bank.Service
@@ -42,13 +46,25 @@ namespace Bank.Service
             }
         }
 
-        public void CreateUser(User user)
+        public Task<User> RegisterUser(RegisterDto registerDto)
         {
-            if (user == null) throw new ArgumentNullException(nameof(user));
-            user.Password = StringExtensions.GetHashString(user.Password);
+            if (registerDto.Email == null) throw new ArgumentNullException(nameof(registerDto.Email));
+            var user = _unitOfWork.UserRepository.Set().Single(u => u.Email == registerDto.Email);
+            if (user.Email == registerDto.Email) 
+            {
+                throw new InvalidDataException("Email is already registered");                
+            }
+           using var hmac = new HMACSHA512();
+           user.Email = registerDto.Email.ToLower();
+           user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password));
+           user.PasswordSalt = hmac.Key;
+
             _unitOfWork.UserRepository.Insert(user);
             SaveChanges();
+
+            return Task.FromResult(user);        
         }
+        
 
         public void UpdateUser(User user)
         {
@@ -69,20 +85,20 @@ namespace Bank.Service
             }
         }
 
-        public void ResetPassword(int userId, string newPassword)
-        {
-            var user = _unitOfWork.UserRepository.Get(userId);
-            if (user != null)
-            {
-                user.Password = newPassword;
-                _unitOfWork.UserRepository.Update(user);
-                SaveChanges();
-            }
-            else
-            {
-                throw new InvalidDataException("User not found");
-            }
-        }
+        //public void ResetPassword(int userId, string newPassword)
+        //{
+        //    var user = _unitOfWork.UserRepository.Get(userId);
+        //    if (user != null)
+        //    {
+        //        user.Password = newPassword;
+        //        _unitOfWork.UserRepository.Update(user);
+        //        SaveChanges();
+        //    }
+        //    else
+        //    {
+        //        throw new InvalidDataException("User not found");
+        //    }
+        //}
 
         public void DeleteUser(int id)
         {
@@ -92,15 +108,24 @@ namespace Bank.Service
             SaveChanges();
         }
 
-        public bool Login(string username, string password)
-        {
-            if (username == null) throw new ArgumentNullException(nameof(username));
-            if (password == null) throw new ArgumentNullException(nameof(password));
+        public Task<User> Login(string email, string password)
+        {         
 
-            return _unitOfWork
-                .UserRepository
-                .Set(u => u.UserName == username && u.Password == password && !u.IsDeleted)
-                .SingleOrDefault() != default;
+            var user = _unitOfWork.UserRepository.Get(email); 
+            if(user.Email != email)
+            {
+                throw new UnauthorizedAccessException();
+            }
+            using var hmac = new HMACSHA512(user.PasswordSalt);
+            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+            for (int i = 0; i < computedHash.Length; i++)
+            {
+                if(computedHash[i] != user.PasswordHash[i])
+                {
+                    throw new UnauthorizedAccessException();
+                }               
+            }
+            return Task.FromResult(user);
         }
 
         public void SaveChanges()

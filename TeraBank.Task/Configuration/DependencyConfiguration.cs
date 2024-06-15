@@ -1,30 +1,58 @@
-﻿using Infrastructure;
+﻿using Bank.Service.Abstraction.Services;
+using Bank.Service;
+using Infrastructure;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace TeraBank.Task.API.Configuration
 {
     public static class DependencyConfiguration
     {
-        public static void ConfigureDependency(this WebApplicationBuilder builder)
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration) 
         {
-            if (builder == null) throw new ArgumentNullException(nameof(builder));
+            var assemblies = Assembly.Load("Mediator");
 
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-            //builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-            builder.Services.AddDbContext<BankDbContext>(options => options.UseSqlServer(connectionString));
-            //builder.Services.AddMediatR(config => config.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
-            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
-            {
-                builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(assembly));
-            }
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(assemblies));
+
+            //foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+            //{
+            //    services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(assemblies));
+            //}
 
             var controllersAssembly = Assembly.Load("Presentation");
+            services.AddControllers()
+              .AddApplicationPart(controllersAssembly)
+              .AddControllersAsServices();
 
-            // Add services to the container.
-            builder.Services.AddControllers()
-                .AddApplicationPart(controllersAssembly)
-                .AddControllersAsServices();
+            return services;
+        }
+
+        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
+        {
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<BankDbContext>(options => options.UseSqlServer(connectionString));
+            services.AddCors();
+            services.AddScoped<ITokenService, TokenService>();
+            return services;
+        }
+        public static IServiceCollection AddAuthenticationAndAuthorizationServices(this IServiceCollection services, IConfiguration configuration)
+        {           
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true, //to make sure that token has been signed by the issuer
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["TokenKey"])),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                    };
+                });            
+
+            return services;
         }
     }
 }

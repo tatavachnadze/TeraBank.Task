@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Bank.Service.Dto;
+using Domain.Entities;
 
 namespace Bank.Service.Interfaces.Services
 {
@@ -6,9 +7,10 @@ namespace Bank.Service.Interfaces.Services
     {
         Task<User> GetUser(int id);
         Task<IEnumerable<User>> GetUsers();
-        void CreateUser(User user);
+        Task<User> RegisterUser(RegisterDto registerDto);
         void UpdateUser(User user);
-        void ResetPassword(int userId, string newPassword);
+        //void ResetPassword(int userId, string newPassword);
         void DeleteUser(int userId);
+        Task<User> Login(string email, string password);
     }
 }

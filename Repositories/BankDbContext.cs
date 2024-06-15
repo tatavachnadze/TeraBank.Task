@@ -58,7 +58,7 @@ public class BankDbContext : DbContext
 
         modelBuilder.Entity<User>().Property(u => u.UserName).HasColumnType("nvarchar(15)").IsRequired();
         modelBuilder.Entity<User>().HasIndex(u => u.UserName).IsUnique(true);
-        modelBuilder.Entity<User>().Property(u => u.Password).HasColumnType("nvarchar(128)").IsRequired();
+        //modelBuilder.Entity<User>().Property(u => u.Password).HasColumnType("nvarchar(128)").IsRequired();
         modelBuilder.Entity<User>().Property(u => u.RegistrationDate).HasColumnType("datetime2(7)").IsRequired();
         modelBuilder.Entity<User>().Property(u => u.IsDeleted).HasColumnType("bit").HasDefaultValue(true);
         modelBuilder.Entity<User>().Property(u => u.CreateDate).HasColumnType("date").HasDefaultValueSql("GetDate()");
