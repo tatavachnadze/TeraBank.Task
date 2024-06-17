@@ -1,16 +1,7 @@
 ﻿using Bank.Service.Dto;
-using Bank.Service;
-using Domain.Entities;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Bank.Service.Abstraction.Services;
 using Bank.Service.Interfaces.Services;
-using TeraExtensions;
-using System.Security.Cryptography;
 
 namespace Mediator.Commands
 {

@@ -2,10 +2,8 @@
 using Bank.Service.Interfaces.Services;
 using Domain.Abstractions;
 using Domain.Entities;
-using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography;
 using System.Text;
-using TeraExtensions;
 
 namespace Bank.Service
 {

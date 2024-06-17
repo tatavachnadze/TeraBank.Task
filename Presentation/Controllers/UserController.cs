@@ -55,13 +55,13 @@ namespace Presentation.Controllers
             return Ok(user);
         }
 
-        [HttpPut("{id:int}/password")]
-        public async Task<IActionResult> ResetPassword(int Id, UserModel model)
-        {
-            if (string.IsNullOrEmpty(model.Password)) throw new ArgumentNullException(nameof(model.Password));
-            await _mediator.Send(new ResetPasswordCommand(Id, model.Password));
-            return Ok();
-        }
+        //[HttpPut("{id:int}/password")]
+        //public async Task<IActionResult> ResetPassword(int Id, UserModel model)
+        //{
+        //    if (string.IsNullOrEmpty(model.Password)) throw new ArgumentNullException(nameof(model.Password));
+        //    await _mediator.Send(new ResetPasswordCommand(Id, model.Password));
+        //    return Ok();
+        //}
 
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteUser(int id)

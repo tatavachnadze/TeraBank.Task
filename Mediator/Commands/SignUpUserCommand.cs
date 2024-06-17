@@ -2,13 +2,7 @@
 using Bank.Service.Abstraction.Services;
 using Bank.Service.Dto;
 using Bank.Service.Interfaces.Services;
-using Domain.Entities;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Mediator.Commands
 {

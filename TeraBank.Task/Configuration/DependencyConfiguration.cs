@@ -13,14 +13,14 @@ namespace TeraBank.Task.API.Configuration
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration) 
         {
-            var assemblies = Assembly.Load("Mediator");
+            //var assemblies = Assembly.Load("Mediator");
 
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(assemblies));
+            //services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(assemblies));
 
-            //foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
-            //{
-            //    services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(assemblies));
-            //}
+            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(assembly));
+            }
 
             var controllersAssembly = Assembly.Load("Presentation");
             services.AddControllers()
